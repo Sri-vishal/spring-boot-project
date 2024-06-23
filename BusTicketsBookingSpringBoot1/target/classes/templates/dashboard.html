@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Bus Ticket Book</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<style>
+		div.demo-wrap {
+			position: relative;
+		}
+
+		div.demo-wrap:before {
+			content: ' ';
+			display: block;
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100vh;
+			opacity: 0.6;
+			background-image: url("/images/bus-traveling-on-asphalt-road-600nw-1345741577 (1).jpg");
+			background-repeat: no-repeat;
+			background-position: 50% 0;
+			background-size: cover;
+		}
+
+		div.demo-content {
+			position: relative;
+		}
+		label{
+			font-weight: 900;
+		}
+		
+	</style>
+
+</head>
+
+<body>
+	<div class="demo-wrap">
+		<div class="demo-content">
+			<br />
+			<center>
+				<h1>Bus Starts At Villupuram And The Destination Was Trichy</h1>
+			</center>
+			<br />
+			<br />
+			<br />
+			<br />
+			<center>
+				<table width="1000" class="coll-md-4 order-md2 mb-4">
+					<tr>
+						<td>
+							<div th:if="${warning != null} " style="text-align: center;" class="alert alert-danger"
+								role="alert" th:text="${warning}">
+							</div>
+							<div th:if="${freeSeats != 0} AND ${freeSeats != null}" style="text-align: center;"
+								class="alert alert-success" role="alert" th:text="'Available Seats: ' + ${freeSeats}">
+							</div>
+							<div th:if="${freeSeats == 0}" style="text-align: center;" class="alert alert-danger"
+								role="alert">Lack of Space
+							</div>
+							<div class="coll-md-4 order-md2 mb-4">
+								<form class="needs-validation" th:action="@{/index}" method="post">
+									<h4 class="mb-3">Check if there are any seats available</h4>
+									<div class="row">
+										<div class="col-md-6 mb-3">
+											<label>From City:</label>
+											<select class="custom-select d-block w-100" th:name="fromCity" required>
+												<option value="">Choose...</option>
+												<option th:text="${city.getName()}" th:value="${city.getName()}"
+													th:each="city : ${cities}"></option>
+											</select>
+										</div>
+										<div class="col-md-6 mb-3">
+											<label>To City:</label>
+											<select class="custom-select d-block w-100" th:name="toCity" required>
+												<option value="">Choose...</option>
+												<option th:text="${city.getName()}" th:value="${city.getName()}"
+													th:each="city : ${cities}"></option>
+											</select>
+										</div>
+									</div>
+									<hr class="mb-4">
+									<button class="btn btn-primary btn-lg btn-block" type="submit">Check</button>
+								</form>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="row">
+								<div class="col-md-2 mb-3">
+									<button type="button" class="btn btn-success"
+										onclick="location.href='/addPassenger'" ;>Buy The Ticket
+									</button>
+								</div>
+								<div class="col-md-2 mb-3">
+									<button type="button" class="btn btn-warning"
+										onclick="location.href='/listOfPassengers'" ;>
+										Passenger List
+									</button>
+								</div>
+								<div class="col-md-2 mb-3">
+									<button type="button" class="btn btn-info" onclick="location.href='/status'" ;>Check
+										The Status Of Places Occupied In Cities
+									</button>
+								</div>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</center>
+
+		</div>
+	</div>
+</body>
+
+</html>
